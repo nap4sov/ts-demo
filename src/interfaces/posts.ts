@@ -1,7 +1,6 @@
 export interface IPost {
   _id: string;
   title: string;
-  fullText?: string;
   description: string;
   dateCreated: string;
   image?: string;
@@ -16,4 +15,13 @@ export interface IResponse {
     total: string;
   };
   data: IPost[];
+}
+
+export interface IPostDetails extends IPost {
+  fullText: string;
+}
+
+export interface IStatus {
+  id: string;
+  expanded: boolean;
 }

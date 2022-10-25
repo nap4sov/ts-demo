@@ -9,7 +9,7 @@ export const PostItem: React.FC<IPost> = ({
   postedBy,
 }) => {
   return (
-    <li key={_id}>
+    <>
       <h3>{title}</h3>
       <p>
         <b>{description}</b>
@@ -18,6 +18,6 @@ export const PostItem: React.FC<IPost> = ({
         Posted by {postedBy ? postedBy : 'anonymous'} on {dateCreated}
       </i>
       <p>Total likes: {likes.length}</p>
-    </li>
+    </>
   );
 };
