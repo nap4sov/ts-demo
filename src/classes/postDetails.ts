@@ -1,5 +1,6 @@
 import { IPostDetails } from '../interfaces/posts';
-import { getDetails } from '../api/posts';
+// import { getDetails } from '../api/posts';
+import { PostsAPI } from '../api';
 
 export class PostDetails implements IPostDetails {
   _id: string;
@@ -11,7 +12,7 @@ export class PostDetails implements IPostDetails {
   dateCreated: string = '';
 
   async setValues(): Promise<IPostDetails> {
-    const post = await getDetails(this._id);
+    const post = await PostsAPI.getDetails(this._id);
 
     this.title = post.title;
     this.description = post.description;
