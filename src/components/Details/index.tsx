@@ -2,19 +2,20 @@ import { Wrapper } from './styles';
 import { Component } from 'react';
 import { PostDetails } from '../../classes/postDetails';
 import { Dispatch, SetStateAction } from 'react';
-import { IPostDetails, IStatus } from '../../interfaces/posts';
+import { IStatus } from '../../interfaces/posts';
+import { CommentsList } from '../CommentsList';
 
 interface IProps {
   id: string;
   setStatus: Dispatch<SetStateAction<IStatus>>;
 }
 
-export class Details extends Component<IProps, IPostDetails> {
+export class Details extends Component<IProps, { comments: boolean }> {
   post = new PostDetails(this.props.id);
 
   async componentDidMount(): Promise<void> {
     await this.post.setValues();
-    this.setState(this.post);
+    this.setState({ comments: false });
   }
 
   render() {
@@ -27,10 +28,18 @@ export class Details extends Component<IProps, IPostDetails> {
         <i>{dateCreated}</i>
         <button>Like {likes.length}</button>
         <button
+          onClick={() =>
+            this.setState(prevState => ({ comments: !prevState.comments }))
+          }
+        >
+          Comments
+        </button>
+        <button
           onClick={() => this.props.setStatus({ id: '', expanded: false })}
         >
           Back
         </button>
+        {this.state?.comments && <CommentsList id={this.props.id} />}
       </Wrapper>
     );
   }
