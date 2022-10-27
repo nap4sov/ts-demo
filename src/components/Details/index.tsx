@@ -4,6 +4,7 @@ import { PostDetails } from '../../classes/postDetails';
 import { Dispatch, SetStateAction } from 'react';
 import { IStatus } from '../../interfaces/posts';
 import { CommentsList } from '../CommentsList';
+import { ExportButton } from '../ExportButton';
 
 interface IProps {
   id: string;
@@ -21,7 +22,7 @@ export class Details extends Component<IProps, { comments: boolean }> {
   render() {
     const { title, description, fullText, dateCreated, likes } = this.post;
     return (
-      <Wrapper>
+      <Wrapper id={this.props.id}>
         <h3>{title}</h3>
         <b>{description}</b>
         <p>{fullText}</p>
@@ -34,6 +35,7 @@ export class Details extends Component<IProps, { comments: boolean }> {
         >
           Comments
         </button>
+        {title && <ExportButton id={this.props.id} post={this.post} />}
         <button
           onClick={() => this.props.setStatus({ id: '', expanded: false })}
         >
